@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 // use merge sort first to make an ordered array
-// possibly divide the "helper" classes etc to different files and import them to this
-// remove dublicate values
+// helper functions do merge sort and duplicate removal inside BST class
 // feed ordered array to tree creator
 // attach insert / delete methods to BST
 
@@ -18,18 +17,18 @@ class BST {
   constructor(array) {
     const unordered = this.removeDuplicates(array);
     const ordered = this.splitter(unordered);
-    console.log(ordered);
+    this.tree = this.buildTree(ordered);
   }
 
-  buildTree(arr, start, end) {
-    if (start > end) {
+  buildTree(arr) {
+    if (arr.length === 0) {
       return null;
     }
-    let mid = parseInt((start + end) / 2);
+    let mid = Math.floor(arr.length / 2);
     let node = new Node(arr[mid]);
 
-    node.left = buildTree(arr, start, mid - 1);
-    node.right = buildTree(arr, mid + 1, end);
+    node.left = this.buildTree(arr.slice(0, mid));
+    node.right = this.buildTree(arr.slice(mid + 1));
     return node;
   }
 
