@@ -23,3 +23,5 @@ function prettyPrint(node, prefix = "", isLeft = true) {
 const TREE = runIt();
 /* console.log(TREE); */
 prettyPrint(TREE.tree);
+TREE.insert(500);
+prettyPrint(TREE.tree);

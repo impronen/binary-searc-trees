@@ -32,6 +32,22 @@ class BST {
     return node;
   }
 
+  // Methods to manipulate tree
+
+  insert(value, currentNode = this.tree) {
+    if (currentNode === null) {
+      return new Node(value);
+    }
+    if (currentNode.data === value) return;
+
+    if (currentNode.data < value) {
+      currentNode.right = this.insert(value, currentNode.right);
+    } else {
+      currentNode.left = this.insert(value, currentNode.left);
+    }
+    return currentNode;
+  }
+
   // Helpers
 
   removeDuplicates(array) {
