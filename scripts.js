@@ -25,3 +25,5 @@ const TREE = runIt();
 prettyPrint(TREE.tree);
 TREE.insert(500);
 prettyPrint(TREE.tree);
+TREE.delete(30);
+prettyPrint(TREE.tree);

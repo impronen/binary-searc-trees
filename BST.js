@@ -35,6 +35,7 @@ class BST {
   // Methods to manipulate tree
 
   insert(value, currentNode = this.tree) {
+    // Base case - empty tree
     if (currentNode === null) {
       return new Node(value);
     }
@@ -48,7 +49,37 @@ class BST {
     return currentNode;
   }
 
+  delete(value, currentNode = this.tree) {
+    // Base case
+    if (currentNode === null) {
+      return currentNode;
+    }
+    //
+    if (value < currentNode.data) {
+      currentNode.left = this.delete(currentNode.left, value);
+    } else if (value > currentNode.data) {
+      currentNode.right = this.delete(currentNode.right, value);
+    } else {
+      if (currentNode.left === null) return currentNode.right;
+      else if (currentNode.right === null) return currentNode.left;
+    }
+    console.log(currentNode);
+    currentNode = this.minValue(currentNode.right);
+    currentNode.right = this.delete(value, currentNode.data);
+  }
+
   // Helpers
+
+  minValue(root) {
+    console.log(root);
+    let min = root.data;
+    while (root.left != null) {
+      min = root.left.data;
+      console.log(min);
+      root = root.left.data;
+    }
+    return min;
+  }
 
   removeDuplicates(array) {
     let choppedArray = [];
@@ -59,6 +90,9 @@ class BST {
     });
     return choppedArray;
   }
+
+  // Merge sort
+
   merger(leftArray, rightArray) {
     const resultArray = [];
 
