@@ -50,33 +50,30 @@ class BST {
   }
 
   delete(value, currentNode = this.tree) {
-    // Base case
-    if (currentNode === null) {
-      return currentNode;
-    }
-    //
+    if (currentNode === null) return currentNode;
     if (value < currentNode.data) {
-      currentNode.left = this.delete(currentNode.left, value);
+      currentNode.left = this.delete(value, currentNode.left);
     } else if (value > currentNode.data) {
-      currentNode.right = this.delete(currentNode.right, value);
+      currentNode.right = this.delete(value, currentNode.right);
     } else {
-      if (currentNode.left === null) return currentNode.right;
-      else if (currentNode.right === null) return currentNode.left;
+      if (currentNode.left === null) {
+        return currentNode.right;
+      } else if (this.tree.right === null) {
+        return this.tree.left;
+      }
+      currentNode.data = this.minValue(currentNode.right);
+      currentNode.data = this.delete(value, currentNode.right);
     }
-    console.log(currentNode);
-    currentNode = this.minValue(currentNode.right);
-    currentNode.right = this.delete(value, currentNode.data);
+    return currentNode;
   }
 
   // Helpers
 
   minValue(root) {
-    console.log(root);
+    console.log(`i'm running says minValue and ${root.valu} was passed in`);
     let min = root.data;
     while (root.left != null) {
       min = root.left.data;
-      console.log(min);
-      root = root.left.data;
     }
     return min;
   }
