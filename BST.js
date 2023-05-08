@@ -61,21 +61,35 @@ class BST {
       } else if (this.tree.right === null) {
         return this.tree.left;
       }
-      currentNode.data = this.minValue(currentNode.right);
-      currentNode.data = this.delete(value, currentNode.right);
+      currentNode.data = this.findMinNode(currentNode.right).data;
+      currentNode.right = this.delete(currentNode.data, currentNode.right);
     }
     return currentNode;
   }
 
+  find(value, currentNode = this.tree) {
+    //base case - if the node is empty or the data is found, the node is returned
+    if (currentNode === null || currentNode.data === value) return currentNode;
+    // Recursive search - tree is traversed based on whether the node value is greater or not
+    if (currentNode.data > value) {
+      return this.find(value, currentNode.left);
+    } else {
+      return this.find(value, currentNode.right);
+    }
+  }
+
+  levelOrder() {
+    let queue = [];
+  }
+
   // Helpers
 
-  minValue(root) {
-    console.log(`i'm running says minValue and ${root.valu} was passed in`);
-    let min = root.data;
-    while (root.left != null) {
-      min = root.left.data;
+  findMinNode(node) {
+    if (node.left === null) {
+      return node;
+    } else {
+      return this.findMinNode(node.left);
     }
-    return min;
   }
 
   removeDuplicates(array) {

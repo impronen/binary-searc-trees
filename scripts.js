@@ -29,3 +29,13 @@ prettyPrint(TREE.tree);
 console.log("We then do some deleting, by deleting 30");
 TREE.delete(30);
 prettyPrint(TREE.tree);
+console.log("And now, some searching");
+let foundValue = TREE.find(25);
+console.log(
+  `and the value of the node found in the search is ${foundValue.data}`
+);
+console.log("lets try with an nonexistent valyu");
+let missingValue = TREE.find(77);
+console.log(
+  `did we find anyhting with search of 77? the value returned was ${missingValue}, so no we did not`
+);
