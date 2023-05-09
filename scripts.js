@@ -44,3 +44,9 @@ let preOrderResult = TREE.preOrder();
 console.log(
   `Aaand, then preorder traversal... the result is ${preOrderResult}`
 );
+let inOrderResult = TREE.inOrder();
+console.log(`Now, lets do inOrder traversal... the result is ${inOrderResult}`);
+let postOrderResult = TREE.postOrder();
+console.log(
+  `Now, lets do postOrder traversal... the result is ${postOrderResult}`
+);

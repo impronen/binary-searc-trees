@@ -117,10 +117,27 @@ class BST {
   }
 
   // Left - Root - Right
-  inOrder() {}
+  inOrder(currentNode = this.tree, result = []) {
+    if (!currentNode) return;
+    else if (currentNode) {
+      this.inOrder(currentNode.left, result);
+      result.push(currentNode.data);
+      this.inOrder(currentNode.right, result);
+    }
+    return result;
+  }
 
   // Left - Right - Root
-  postOrder() {}
+  postOrder(currentNode = this.tree, result = []) {
+    if (!currentNode) return;
+    else if (currentNode) {
+      this.postOrder(currentNode.left, result);
+      this.postOrder(currentNode.right, result);
+      result.push(currentNode.data);
+    }
+
+    return result;
+  }
 
   // Helpers
 
