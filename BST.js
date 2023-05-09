@@ -39,8 +39,10 @@ class BST {
     if (currentNode === null) {
       return new Node(value);
     }
+    // Value exists in the tree, no need to insert
     if (currentNode.data === value) return;
 
+    // Recursive traversal based on whether the value is higher or lower
     if (currentNode.data < value) {
       currentNode.right = this.insert(value, currentNode.right);
     } else {
@@ -50,18 +52,24 @@ class BST {
   }
 
   delete(value, currentNode = this.tree) {
+    // Base case
     if (currentNode === null) return currentNode;
     if (value < currentNode.data) {
+      // if value is smaller, we move down the left branch
       currentNode.left = this.delete(value, currentNode.left);
     } else if (value > currentNode.data) {
+      // and if larger, right
       currentNode.right = this.delete(value, currentNode.right);
     } else {
+      // we have a node with either no children or just one
       if (currentNode.left === null) {
         return currentNode.right;
       } else if (this.tree.right === null) {
-        return this.tree.left;
+        return this.tree.right;
       }
+      // finding inorder successor or the smallest from the right tree
       currentNode.data = this.findMinNode(currentNode.right).data;
+      // the inorder successor is deleted
       currentNode.right = this.delete(currentNode.data, currentNode.right);
     }
     return currentNode;
@@ -78,9 +86,41 @@ class BST {
     }
   }
 
-  levelOrder() {
-    let queue = [];
+  levelOrder(funcc) {
+    // initialise the work queue by placing the original node there
+    // result is used to push values after traversing
+    let queue = [this.tree];
+    let result = [];
+
+    while (queue.length > 0) {
+      const node = queue.shift();
+      if (funcc && typeof funcc === "function") {
+        node.data = funcc(node.data);
+      } else {
+        result.push(node.data);
+      }
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    if (result.length > 0) return result;
   }
+
+  // Root - left - right
+  preOrder(currentNode = this.tree, result = []) {
+    if (!currentNode) return;
+    else if (currentNode) {
+      result.push(currentNode.data);
+      this.preOrder(currentNode.left, result);
+      this.preOrder(currentNode.right, result);
+    }
+    return result;
+  }
+
+  // Left - Root - Right
+  inOrder() {}
+
+  // Left - Right - Root
+  postOrder() {}
 
   // Helpers
 
@@ -88,7 +128,7 @@ class BST {
     if (node.left === null) {
       return node;
     } else {
-      return this.findMinNode(node.left);
+      return this.findMinNode(node.right);
     }
   }
 

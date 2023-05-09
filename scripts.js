@@ -21,21 +21,26 @@ function prettyPrint(node, prefix = "", isLeft = true) {
 }
 
 const TREE = runIt();
-/* console.log(TREE); */
+console.log("So first off... here's the bloody tree for ya");
 prettyPrint(TREE.tree);
-console.log("We do a little insert");
+console.log("Then we do a little insert... let's add 500, why not");
 TREE.insert(500);
 prettyPrint(TREE.tree);
-console.log("We then do some deleting, by deleting 30");
+console.log("We then do some deleting. We might as well be deleting 30");
 TREE.delete(30);
+console.log("Now it looks like this:");
 prettyPrint(TREE.tree);
-console.log("And now, some searching");
+console.log("And now, some searching - let's look for 25");
 let foundValue = TREE.find(25);
-console.log(
-  `and the value of the node found in the search is ${foundValue.data}`
-);
-console.log("lets try with an nonexistent valyu");
+console.log(`Found it! The value is ${foundValue.data} (duh)`);
+console.log("Now, lets try with an nonexistent value - like say 77");
 let missingValue = TREE.find(77);
 console.log(
-  `did we find anyhting with search of 77? the value returned was ${missingValue}, so no we did not`
+  `Did we find anything with search of 77? the value returned was ${missingValue}, so... no`
+);
+let levelOrderResult = TREE.levelOrder();
+console.log(`NEXT... Levelorder traversal. The result is: ${levelOrderResult}`);
+let preOrderResult = TREE.preOrder();
+console.log(
+  `Aaand, then preorder traversal... the result is ${preOrderResult}`
 );
