@@ -37,7 +37,8 @@ class BST {
   insert(value, currentNode = this.tree) {
     // Base case - empty tree
     if (currentNode === null) {
-      return new Node(value);
+      currentNode = new Node(value);
+      return currentNode;
     }
     // Value exists in the tree, no need to insert
     if (currentNode.data === value) return;
@@ -165,6 +166,22 @@ class BST {
       }
     }
     return distance;
+  }
+
+  isBalanced(currentNode = this.tree) {
+    if (!this.tree) return;
+
+    let leftHeight = this.height(currentNode.left);
+    let rightHeight = this.height(currentNode.right);
+
+    if (
+      Math.abs(leftHeight - rightHeight) <= 1 &&
+      this.isBalanced(currentNode.left) === true &&
+      this.isBalanced(currentNode.right) === true
+    ) {
+      return true;
+    }
+    return false;
   }
 
   // Helpers

@@ -7,6 +7,15 @@ function runIt() {
   return tree;
 }
 
+function unbalanceTheTree() {
+  const unbalancedArray = [];
+  const numberOfNodes = Math.floor(Math.random() * 15) + 20;
+  for (let i = 0; i < numberOfNodes; i++) {
+    unbalancedArray.push(Math.floor(Math.random() * 4999) + 5001);
+  }
+  return unbalancedArray;
+}
+
 function prettyPrint(node, prefix = "", isLeft = true) {
   if (node === null) {
     return;
@@ -49,4 +58,14 @@ console.log(`Now, lets do inOrder traversal... the result is ${inOrderResult}`);
 let postOrderResult = TREE.postOrder();
 console.log(
   `Now, lets do postOrder traversal... the result is ${postOrderResult}`
+);
+console.log("Right.. let's cause some chaos and unbalance this tree");
+unbalanceTheTree().forEach((number) => {
+  TREE.insert(number);
+});
+console.log("DOING CHAOS THINGS");
+prettyPrint(TREE.tree);
+console.log(
+  "is it balance? let's see.. oh, well the result is",
+  TREE.isBalanced()
 );
