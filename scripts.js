@@ -11,7 +11,7 @@ function unbalanceTheTree() {
   const unbalancedArray = [];
   const numberOfNodes = Math.floor(Math.random() * 15) + 20;
   for (let i = 0; i < numberOfNodes; i++) {
-    unbalancedArray.push(Math.floor(Math.random() * 4999) + 5001);
+    unbalancedArray.push(Math.floor(Math.random() * 4999) + 1999);
   }
   return unbalancedArray;
 }
@@ -66,6 +66,20 @@ unbalanceTheTree().forEach((number) => {
 console.log("DOING CHAOS THINGS");
 prettyPrint(TREE.tree);
 console.log(
-  "is it balance? let's see.. oh, well the result is",
+  "is it balance? doesn't look like it but let's test anyway..... aand the result is",
   TREE.isBalanced()
 );
+console.log("(ノಠ益ಠ)ノ彡┻━┻");
+console.log(".....");
+console.log("ghaa, some rebalancing then...");
+console.log("....puitting the table back ┳━┳ ヽ(ಠل͜ಠ)ﾉ");
+TREE.reBalance();
+console.log("Done... let's see how it looks");
+prettyPrint(TREE.tree);
+console.log("NICE (▰˘◡˘▰)");
+console.log("And for the last trick, lets do some traversals on our new tree");
+console.log("level order", TREE.levelOrder());
+console.log("in order", TREE.inOrder());
+console.log("pre order", TREE.preOrder());
+console.log("post order", TREE.postOrder());
+console.log("looking good (-■_■)");

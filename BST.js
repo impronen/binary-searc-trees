@@ -184,6 +184,12 @@ class BST {
     return false;
   }
 
+  reBalance() {
+    if (this.isBalanced()) return;
+    const nodeBasket = this.inOrder(this.tree);
+    this.tree = this.buildTree(nodeBasket);
+  }
+
   // Helpers
 
   findMinNode(node) {
