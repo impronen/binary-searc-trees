@@ -139,6 +139,34 @@ class BST {
     return result;
   }
 
+  height(node) {
+    // Base case
+    if (!node) return -1;
+
+    //Recusive part  - traversing down the tree
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+
+    // Check which is larger and add one (for the node that won't be part of the recursion)
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  depth(node) {
+    if (!node || node == this.tree) return -1;
+    let distance = 0;
+    let currentNode = this.tree;
+    while (currentNode != node) {
+      distance++;
+
+      if (currentNode.data > node.data) {
+        currentNode = currentNode.left;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+    return distance;
+  }
+
   // Helpers
 
   findMinNode(node) {
