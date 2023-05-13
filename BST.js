@@ -77,7 +77,7 @@ class BST {
   }
 
   find(value, currentNode = this.tree) {
-    //base case - if the node is empty or the data is found, the node is returned
+    //base case - if the node does not exist or the data is found, the node is returned
     if (currentNode === null || currentNode.data === value) return currentNode;
     // Recursive search - tree is traversed based on whether the node value is greater or not
     if (currentNode.data > value) {
@@ -94,22 +94,27 @@ class BST {
     let result = [];
 
     while (queue.length > 0) {
+      // The first element is removed from queue and placed as a temp node
       const node = queue.shift();
       if (funcc && typeof funcc === "function") {
         node.data = funcc(node.data);
       } else {
+        // Contents of node are pushed to result array
         result.push(node.data);
       }
+      // Child nodes are placed to the queue
+      // While loop is kept running until all nodes are traversed
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
     if (result.length > 0) return result;
   }
 
-  // Root - left - right
+  // Preorder = Root - left - right
   preOrder(currentNode = this.tree, result = []) {
     if (!currentNode) return;
     else if (currentNode) {
+      // First push root node, then left and right recursively
       result.push(currentNode.data);
       this.preOrder(currentNode.left, result);
       this.preOrder(currentNode.right, result);
@@ -121,6 +126,7 @@ class BST {
   inOrder(currentNode = this.tree, result = []) {
     if (!currentNode) return;
     else if (currentNode) {
+      // Same as above, just different order of handling
       this.inOrder(currentNode.left, result);
       result.push(currentNode.data);
       this.inOrder(currentNode.right, result);
@@ -132,6 +138,7 @@ class BST {
   postOrder(currentNode = this.tree, result = []) {
     if (!currentNode) return;
     else if (currentNode) {
+      // And again, we just leave the root node as last
       this.postOrder(currentNode.left, result);
       this.postOrder(currentNode.right, result);
       result.push(currentNode.data);
@@ -141,7 +148,8 @@ class BST {
   }
 
   height(node) {
-    // Base case
+    // Starts from the target node and goes to leaf
+    // Base case - no node, we decrease the last addition
     if (!node) return -1;
 
     //Recusive part  - traversing down the tree
@@ -153,12 +161,14 @@ class BST {
   }
 
   depth(node) {
+    // Returns how deep the target node is in the tree
+    // Base case - no node, we decrease the last addition
     if (!node || node == this.tree) return -1;
     let distance = 0;
     let currentNode = this.tree;
     while (currentNode != node) {
       distance++;
-
+      // Traverse based on node values
       if (currentNode.data > node.data) {
         currentNode = currentNode.left;
       } else {
@@ -169,12 +179,15 @@ class BST {
   }
 
   isBalanced(currentNode = this.tree) {
+    // Base case - return if no more nodes to check
     if (!this.tree) return;
-
+    // Reuse of height, to use them for calculation of difference
     let leftHeight = this.height(currentNode.left);
     let rightHeight = this.height(currentNode.right);
 
     if (
+      // First we check the height difference btw current node
+      // Then repeat recursively for all the child nodes
       Math.abs(leftHeight - rightHeight) <= 1 &&
       this.isBalanced(currentNode.left) === true &&
       this.isBalanced(currentNode.right) === true
@@ -185,8 +198,11 @@ class BST {
   }
 
   reBalance() {
+    // First check if tree already is balanced
     if (this.isBalanced()) return;
+    // Traverse the tree and place the resulting array in a variable
     const nodeBasket = this.inOrder(this.tree);
+    // Use said variable to rebuild the tree
     this.tree = this.buildTree(nodeBasket);
   }
 
@@ -210,7 +226,7 @@ class BST {
     return choppedArray;
   }
 
-  // Merge sort
+  // Merge sort - used to create a sorted array effectively
 
   merger(leftArray, rightArray) {
     const resultArray = [];
